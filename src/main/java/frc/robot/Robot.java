@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.JoystickDriveCommand;
 import frc.robot.subsystems.DriveTrain;
 
 /**
@@ -20,6 +21,7 @@ import frc.robot.subsystems.DriveTrain;
  * project.
  */
 public class Robot extends TimedRobot {
+  public static Robot instance;
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
@@ -34,14 +36,16 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    instance = this;
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
-
-    driveTrain = new DriveTrain(RobotMap.LEFT_FRONT, RobotMap.LEFT_BACK, RobotMap.RIGHT_FRONT, RobotMap.RIGHT_BACK);
+  
     oi = new OI(RobotMap.XBOX_USB);
+    driveTrain = new DriveTrain(RobotMap.LEFT_FRONT, RobotMap.LEFT_BACK, RobotMap.RIGHT_FRONT, RobotMap.RIGHT_BACK);
+    System.out.println("robotInit " + driveTrain);
   }
-
+  
   /**
    * This function is called every robot packet, no matter the mode. Use
    * this for items like diagnostics that you want ran during disabled,
@@ -88,6 +92,11 @@ public class Robot extends TimedRobot {
     }
   }
 
+  @Override
+  public void teleopInit() {
+    new JoystickDriveCommand().start();
+  }
+
   /**
    * This function is called periodically during operator control.
    */
@@ -100,5 +109,15 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+  }
+
+  @Override
+  public void disabledInit() {
+
+  }
+
+  @Override
+  public void disabledPeriodic() {
+    
   }
 }

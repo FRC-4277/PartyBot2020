@@ -12,10 +12,10 @@ package frc.robot;
  */
 public class RobotMap {
     // Motors
-    public static final int LEFT_FRONT = 0;
-    public static final int LEFT_BACK = 3;
-    public static final int RIGHT_FRONT = 1;
-    public static final int RIGHT_BACK = 2;
+    public static final int LEFT_FRONT = 1;
+    public static final int LEFT_BACK = 0;
+    public static final int RIGHT_FRONT = 4;
+    public static final int RIGHT_BACK = 3;
     // Controllers
     public static final int XBOX_USB = 0;
 }

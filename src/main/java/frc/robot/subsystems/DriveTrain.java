@@ -24,6 +24,7 @@ public class DriveTrain extends Subsystem {
   private DifferentialDrive drive;
 
   public DriveTrain(int leftFront, int leftBack, int rightFront, int rightBack) {
+    super("DriveTrain");
     leftFrontMotor = new Talon(leftFront);
     rightFrontMotor = new Talon(rightFront);
     rightBackMotor = new Talon(rightBack);
@@ -33,9 +34,11 @@ public class DriveTrain extends Subsystem {
     rightGroup = new SpeedControllerGroup(rightFrontMotor, rightBackMotor);
 
     drive = new DifferentialDrive(leftGroup, rightGroup);
+    System.out.println("@A");
   }
 
   public void drive(double x, double y) {
+    System.out.println("DRIVE: [x" + x + ", y" + y + "]");
     drive.tankDrive(x, y);
   }
 
@@ -44,5 +47,6 @@ public class DriveTrain extends Subsystem {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
     setDefaultCommand(new JoystickDriveCommand());
+    System.out.println("@DEFAULT COMMAND");
   }
 }
